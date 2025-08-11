@@ -8,8 +8,7 @@ const PORT = process.env.PORT || 5000;
 const groups = require("./routers/groups");
 const employee = require("./routers/employee");
 const auth = require("./routers/auth");
-const dbUri =
-  "mongodb+srv://n4wafxhd:A8qTsZT0EFqdzrmz@cluster0.cc124h9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const dbUri = process.env.DBURL;
 
 //Temp export for testing purposes
 const {
