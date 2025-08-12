@@ -6,10 +6,8 @@ const groupSchema = new Schema({
   workingDays: { type: [String], required: true },
   shiftStart: { type: String, required: true },
   shiftEnd: { type: String, required: true },
-  supervisor: { type: String, require: false },
-
-  //ref to Employee model (NOTE: refresh about populating references in Mongoose)
-  // employees: [{ type: Schema.Types.ObjectId, ref: "Employee" }],
+  supervisor: { type: Schema.Types.ObjectId, ref: "Employee", required: false },
+  employees: [{ type: Schema.Types.ObjectId, ref: "Employee" }],
 });
 
 module.exports = mongoose.model("Group", groupSchema);

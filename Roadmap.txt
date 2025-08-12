@@ -1,0 +1,15 @@
+12-Done making Group Crud
+        - now adding employee works  
+        DONE
+
+
+
+13-add admin/supervisor role to each group , select from the current employees / add delete route for employees
+
+
+14-17- work on the dashboard
+
+
+17-22 - FullCalendar Page
+
+23- simple valdition for adding employee / groups ....

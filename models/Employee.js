@@ -3,9 +3,9 @@ const Schema = mongoose.Schema;
 
 const employeeSchema = new Schema({
   name: { type: String, required: true },
-  phoneNumber: { type: String, required: true },
-  position: { type: String, required: true },
-  admin: { type: Boolean, default: false },
+  phone: { type: String, required: true },
+  email: { type: String, required: true },
+  group: { type: Schema.Types.ObjectId, ref: "Group" },
 });
 
 module.exports = mongoose.model("Employee", employeeSchema);

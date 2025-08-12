@@ -16,7 +16,7 @@ router.get("/groups", async (req, res) => {
 router.get("/groups/:id", async (req, res) => {
   try {
     const { id } = req.params;
-    const group = await Group.findById(id);
+    const group = await Group.findById(id).populate("employees");
     if (!group) return res.status(404).json({ msg: "no data for this group" });
     res.status(200).json(group);
   } catch (err) {
@@ -57,7 +57,7 @@ router.put("/groups/:id", async (req, res) => {
 });
 router.delete("/groups/:id", async (req, res) => {
   const { id } = req.params;
-  const group = await Group.findOneAndDelete(id);
+  const group = await Group.findByIdAndDelete(id);
   if (!group) return res.status(404).json({ msg: "Cannot find the group " });
 
   res.status(200).json({ msg: "group has been deleted" });
