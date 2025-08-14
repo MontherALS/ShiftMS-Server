@@ -2,8 +2,11 @@ const express = require("express");
 const router = express.Router();
 const Employee = require("../models/Employee");
 const Group = require("../models/Group");
-router.get("/employees", (req, res) => {
-  res.status(200).json(dummyEmployees);
+router.get("/employees", async (req, res) => {
+  const employees = await Employee.find().populate("group");
+  if (!employees)
+    return res.status(404).json({ message: "No employees found" });
+  res.status(200).json(employees);
 });
 router.post("/add-employee", async (req, res) => {
   const { name, phone, email, group } = req.body;
@@ -23,9 +26,6 @@ router.post("/add-employee", async (req, res) => {
   await foundGroup.save();
   res.status(201).json(employee);
 });
-router.delete("/employees/:id", (req, res) => {
-  const { id } = req.params;
-  // Logic to delete the employee by id
-});
+router.delete("/employees/:id", async (req, res) => {});
 
 module.exports = router;
