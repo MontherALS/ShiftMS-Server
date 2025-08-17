@@ -6,6 +6,8 @@ const groupSchema = new Schema({
   workingDays: { type: [String], required: true },
   shiftStart: { type: String, required: true },
   shiftEnd: { type: String, required: true },
+  startingDate: { type: Date, required: false },
+  endingDate: { type: Date, required: false },
   supervisor: { type: Schema.Types.ObjectId, ref: "Employee", required: false },
   employees: [{ type: Schema.Types.ObjectId, ref: "Employee" }],
 });
