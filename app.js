@@ -1,35 +1,19 @@
-const express = require("express");
-const app = express();
-const cors = require("cors");
-const mongoose = require("mongoose");
-const dotenv = require("dotenv");
-const groups = require("./routers/groups");
-const employee = require("./routers/employee");
-const auth = require("./routers/auth");
+import express from "express";
+import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import groups from "./routers/groups.js";
+import employee from "./routers/employee.js";
+import auth from "./routers/auth.js";
 dotenv.config();
 const dbUri = process.env.DBURL;
 const PORT = process.env.PORT || 5000;
 
-//Temp export for testing purposes
-const {
-  dummyEmployees,
-  dummyGroups,
-  employeeGroupAssignments,
-} = require("./util/DummyData");
-
+const app = express();
 app.use(express.json());
 
 app.use(cors());
 
-app.get("/dashboard", (req, res) => {
-  res.status(200).json({
-    employees: dummyEmployees,
-    groups: dummyGroups,
-    assignments: employeeGroupAssignments,
-  });
-});
-
-// app.use(dashboard);
 app.use(auth);
 app.use(groups);
 app.use(employee);

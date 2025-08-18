@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { collection } = require("./Employee");
 const Schema = mongoose.Schema;
 
 const groupSchema = new Schema({
