@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 
 const DummyData = {
-  id: 99,
-  email: "n@n.n",
-  password: "123",
+  id: 11221,
+  email: "admin@gmail.com",
+  password: "a123",
 };
 
 export const login = async (req, res) => {
@@ -12,11 +12,7 @@ export const login = async (req, res) => {
     if (email !== DummyData.email || password !== DummyData.password) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
-    const token = jwt.sign(
-      { id: DummyData.id, email: DummyData.email },
-      process.env.JWT_SECRET
-    );
-    console.log("Generated JWT:", token);
+    const token = jwt.sign({ id: DummyData.id, email: DummyData.email }, process.env.JWT_SECRET);
 
     return res.status(200).json({ token });
   } catch (error) {

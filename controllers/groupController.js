@@ -5,26 +5,23 @@ export const getGroups = async (req, res) => {
   try {
     const groups = await Group.find().populate("supervisor");
 
-    if (!groups)
-      return res.status(404).json({ msg: "cannot find Groups in db" });
+    if (!groups) return res.status(404).json({ message: "cannot find Groups in db" });
     res.status(200).json(groups);
   } catch (err) {
     console.log("Getting Groups error:", err.message);
-    res.status(500).json({ msg: "Failed to get groups" });
+    res.status(500).json({ message: "Failed to get groups" });
   }
 };
 
 export const getGroupById = async (req, res) => {
   try {
     const { id } = req.params;
-    const group = await Group.findById(id)
-      .populate("employees")
-      .populate("supervisor");
-    if (!group) return res.status(404).json({ msg: "no data for this group" });
+    const group = await Group.findById(id).populate("employees").populate("supervisor");
+    if (!group) return res.status(404).json({ message: "no data for this group" });
     res.status(200).json(group);
   } catch (err) {
     console.log("Error happend : ", err.message);
-    res.status(500).json({ msg: "Failed to get group by ID" });
+    res.status(500).json({ message: "Failed to get group by ID" });
   }
 };
 export const createGroup = async (req, res) => {
@@ -35,7 +32,7 @@ export const createGroup = async (req, res) => {
       workingDays,
       shiftStart,
       shiftEnd,
-      supervisor,
+      supervisor: supervisor || null,
     };
     const group = new Group(newGroup);
     await group.save();
@@ -43,50 +40,46 @@ export const createGroup = async (req, res) => {
     res.status(201).json(group);
   } catch (err) {
     console.log("Error creating group:", err.message);
-    res.status(500).json({ msg: "Failed to create group" });
+    res.status(500).json({ message: "Failed to create group" });
   }
 };
 
 export const updateGroup = async (req, res) => {
   try {
     const { id } = req.params;
-    const { name, workingDays, shiftStart, shiftEnd, supervisor, employees } =
-      req.body;
+    const { name, workingDays, shiftStart, shiftEnd, supervisor, employees } = req.body;
 
     const updatedData = {
       name,
       workingDays,
       shiftStart,
       shiftEnd,
-      supervisor,
+      supervisor: supervisor || null,
       employees,
     };
 
     const group = await Group.findByIdAndUpdate(id, updatedData, { new: true });
-    if (!group) return res.status(404).json({ msg: "Cannot find the group" });
+    if (!group) return res.status(404).json({ message: "Cannot find the group" });
 
     if (employees && employees.length > 0) {
-      await Employee.updateMany(
-        { _id: { $in: employees } },
-        { group: group._id }
-      );
+      await Employee.updateMany({ _id: { $in: employees } }, { group: group._id });
     }
 
-    res.status(200).json({ msg: "Group updated successfully", group });
+    res.status(200).json({ message: "Group updated successfully", group });
   } catch (err) {
     console.log("Error updating group:", err.message);
-    res.status(500).json({ msg: "Failed to update group" });
+    res.status(500).json({ message: "Failed to update group" });
   }
 };
 export const deleteGroup = async (req, res) => {
   try {
     const { id } = req.params;
     const group = await Group.findByIdAndDelete(id);
-    if (!group) return res.status(404).json({ msg: "Cannot find the group " });
+    if (!group) return res.status(404).json({ message: "Cannot find the group " });
 
-    res.status(200).json({ msg: "group has been deleted" });
+    res.status(200).json({ message: "group has been deleted" });
   } catch (err) {
     console.log("Error deleting group:", err.message);
-    res.status(500).json({ msg: "Failed to delete group" });
+    res.status(500).json({ message: "Failed to delete group" });
   }
 };

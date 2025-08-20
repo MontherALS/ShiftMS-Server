@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const employeeSchema = new Schema({
@@ -7,5 +7,4 @@ const employeeSchema = new Schema({
   email: { type: String, required: true },
   group: { type: Schema.Types.ObjectId, ref: "Group" },
 });
-
-module.exports = mongoose.model("Employee", employeeSchema);
+export default mongoose.model("Employee", employeeSchema);
