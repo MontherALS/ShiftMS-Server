@@ -2,9 +2,14 @@ import Employee from "../models/Employee.js";
 import Group from "../models/Group.js";
 
 export const getEmployees = async (req, res) => {
-  const employees = await Employee.find().populate("group");
-  if (!employees) return res.status(404).json({ message: "No employees found" });
-  res.status(200).json(employees);
+  try {
+    const employees = await Employee.find().populate("group");
+    if (!employees) return res.status(404).json({ message: "No employees found" });
+    res.status(200).json(employees);
+  } catch (err) {
+    console.error("Error fetching employees:", err);
+    return res.status(500).json({ message: "Internal server error" });
+  }
 };
 
 export const addEmployee = async (req, res) => {

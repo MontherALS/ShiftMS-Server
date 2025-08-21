@@ -34,9 +34,15 @@ export const createGroup = async (req, res) => {
       shiftEnd,
       supervisor: supervisor || null,
     };
+    if (!newGroup.name || !newGroup.workingDays || !newGroup.shiftStart || !newGroup.shiftEnd) {
+      return res.status(400).json({ message: "All fields are required" });
+    }
+    if (newGroup.name.length < 3) {
+      return res.status(400).json({ message: "Name must be at least 3 characters long" });
+    }
+
     const group = new Group(newGroup);
     await group.save();
-    console.log("Group created:", group);
     res.status(201).json(group);
   } catch (err) {
     console.log("Error creating group:", err.message);
