@@ -5,9 +5,9 @@ import { getGroups, getGroupById, createGroup, updateGroup, deleteGroup } from "
 
 router.get("/groups", getGroups);
 
-router.get("/groups/:id", getGroupById);
-
 router.post("/groups", createGroup);
+
+router.get("/groups/:id", getGroupById);
 
 router.put("/groups/:id", updateGroup);
 

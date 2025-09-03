@@ -4,7 +4,7 @@ import { getEmployees, addEmployee, deleteEmployee } from "../controllers/employ
 
 router.get("/employees", getEmployees);
 
-router.post("/add-employee", addEmployee);
+router.post("/employees", addEmployee);
 
 router.delete("/employees/:id", deleteEmployee);
 

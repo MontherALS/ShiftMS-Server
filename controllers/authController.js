@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-//TODO make it work and add roles for normal users and adminds (add notifcation system) 
+//TODO make it work and add roles for normal users and adminds (add notifcation system)
+
 const DummyData = {
   id: 11221,
   email: "admin@gmail.com",
