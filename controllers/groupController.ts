@@ -1,5 +1,5 @@
-import Group from "../models/Group.js";
-import Employee from "../models/Employee.js";
+import Group from "../models/Group";
+import Employee from "../models/Employee";
 import { Request, Response } from "express";
 
 type GroupType = {

@@ -2,9 +2,9 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
-import groups from "./routers/groups.js";
-import employee from "./routers/employee.js";
-import auth from "./routers/auth.js";
+import groups from "./routers/groups";
+import employee from "./routers/employee";
+import auth from "./routers/auth";
 
 dotenv.config();
 const dbUri = process.env.DBURL;

@@ -1,7 +1,7 @@
 import express from "express";
 const router = express.Router();
 
-import { getGroups, getGroupById, createGroup, updateGroup, deleteGroup } from "../controllers/groupController.js";
+import { getGroups, getGroupById, createGroup, updateGroup, deleteGroup } from "../controllers/groupController";
 
 router.get("/groups", getGroups);
 

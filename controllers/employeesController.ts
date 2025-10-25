@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
-import Employee from "../models/Employee.js";
-import Group from "../models/Group.js";
+import Employee from "../models/Employee";
+import Group from "../models/Group";
 
 interface EmployeesType {
   name: string;
