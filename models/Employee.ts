@@ -4,13 +4,14 @@ const Schema = mongoose.Schema;
 interface Employee {
   name: string;
   phone: string;
-  email: string;
   group: mongoose.Types.ObjectId;
+  admin: mongoose.Types.ObjectId;
 }
 const employeeSchema = new Schema<Employee>({
   name: { type: String, required: true },
-  phone: { type: String, required: true },
-  email: { type: String, required: true },
+  phone: { type: String, required: true, unique: true },
+
   group: { type: Schema.Types.ObjectId, ref: "Group" },
+  admin: { type: Schema.Types.ObjectId, ref: "Admin", required: true },
 });
 export default mongoose.model<Employee>("Employee", employeeSchema);

@@ -13,9 +13,12 @@ type GroupType = {
 
 export const getGroups = async (req: Request, res: Response) => {
   try {
-    const groups = await Group.find().populate("supervisor");
+    const adminId = (req as any).user.id;
 
-    if (groups.length === 0) return res.status(404).json({ message: "cannot find Groups" });
+    if (!adminId) {
+      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
+    }
+    const groups = await Group.find({ admin: adminId }).populate("supervisor");
 
     res.status(200).json(groups);
   } catch (err: any) {
@@ -27,9 +30,14 @@ export const getGroups = async (req: Request, res: Response) => {
 
 export const getGroupById = async (req: Request, res: Response) => {
   try {
+    const adminId = (req as any).user.id;
+
+    if (!adminId) {
+      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
+    }
     const { id } = req.params;
 
-    const group = await Group.findById(id).populate("employees").populate("supervisor");
+    const group = await Group.findOne({ _id: id, admin: adminId }).populate("employees").populate("supervisor");
 
     if (!group) return res.status(404).json({ message: "no data for this group" });
 
@@ -43,6 +51,11 @@ export const getGroupById = async (req: Request, res: Response) => {
 
 export const createGroup = async (req: Request<{}, {}, GroupType>, res: Response) => {
   try {
+    const adminId = (req as any).user.id;
+
+    if (!adminId) {
+      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
+    }
     const { name, workingDays, shiftStart, shiftEnd, supervisor } = req.body;
 
     const newGroup = {
@@ -51,6 +64,7 @@ export const createGroup = async (req: Request<{}, {}, GroupType>, res: Response
       shiftStart,
       shiftEnd,
       supervisor: supervisor || null,
+      admin: adminId,
     };
     if (!newGroup.name || !newGroup.workingDays || !newGroup.shiftStart || !newGroup.shiftEnd) {
       return res.status(400).json({ message: "All fields are required" });
@@ -69,9 +83,18 @@ export const createGroup = async (req: Request<{}, {}, GroupType>, res: Response
 
 export const updateGroup = async (req: Request<{ id: string }, {}, GroupType>, res: Response) => {
   try {
+    const adminId = (req as any).user.id;
     const { id } = req.params;
-
     const { name, workingDays, shiftStart, shiftEnd, supervisor, employees } = req.body;
+
+    if (!adminId) {
+      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
+    }
+
+    const existingGroup = await Group.findOne({ _id: id, admin: adminId });
+    if (!existingGroup) {
+      return res.status(403).json({ message: "Forbidden: You don't own this group" });
+    }
 
     const updatedData = {
       name,
@@ -82,17 +105,17 @@ export const updateGroup = async (req: Request<{ id: string }, {}, GroupType>, r
       employees,
     };
 
-    const group = await Group.findByIdAndUpdate(id, updatedData, { new: true });
+    const updatedGroup = await Group.findByIdAndUpdate(id, updatedData, { new: true });
 
-    if (!group) return res.status(404).json({ message: "Cannot find the group" });
+    if (!updatedGroup) return res.status(404).json({ message: "Cannot find the group" });
 
-    await Employee.updateMany({ group: group._id }, { $unset: { group: "" } });
+    await Employee.updateMany({ group: updatedGroup._id }, { $unset: { group: "" } });
 
     if (employees.length > 0) {
-      await Employee.updateMany({ _id: { $in: employees } }, { group: group._id });
+      await Employee.updateMany({ _id: { $in: employees } }, { group: updatedGroup._id });
     }
 
-    res.status(200).json({ message: "Group updated successfully", group });
+    res.status(200).json({ message: "Group updated successfully", group: updatedGroup });
   } catch (err: any) {
     console.log("Error updating group:", err.message);
 
@@ -102,11 +125,18 @@ export const updateGroup = async (req: Request<{ id: string }, {}, GroupType>, r
 
 export const deleteGroup = async (req: Request, res: Response) => {
   try {
+    const adminId = (req as any).user.id;
+
+    if (!adminId) {
+      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
+    }
     const { id } = req.params;
 
-    const group = await Group.findByIdAndDelete(id);
+    const group = await Group.findOneAndDelete({ _id: id, admin: adminId });
 
     if (!group) return res.status(404).json({ message: "Cannot find the group " });
+
+    await Employee.updateMany({ group: id }, { $unset: { group: "" } });
 
     res.status(200).json({ message: "group has been deleted" });
   } catch (err: any) {

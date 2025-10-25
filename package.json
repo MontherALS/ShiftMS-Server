@@ -8,6 +8,8 @@
     "start": "nodemon --exec ts-node app.ts"
   },
   "dependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
@@ -19,6 +21,7 @@
   "license": "ISC",
   "description": "",
   "devDependencies": {
+    "@types/bcryptjs": "^2.4.6",
     "@types/cors": "^2.8.19",
     "@types/express": "^5.0.4",
     "@types/jsonwebtoken": "^9.0.10",

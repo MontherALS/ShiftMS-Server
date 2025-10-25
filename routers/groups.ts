@@ -1,16 +1,16 @@
 import express from "express";
 const router = express.Router();
-
+import { verifyToken } from "../middleware/verifyTokens";
 import { getGroups, getGroupById, createGroup, updateGroup, deleteGroup } from "../controllers/groupController";
 
-router.get("/groups", getGroups);
+router.get("/groups", verifyToken, getGroups);
 
-router.post("/groups", createGroup);
+router.post("/groups", verifyToken, createGroup);
 
-router.get("/groups/:id", getGroupById);
+router.get("/groups/:id", verifyToken, getGroupById);
 
-router.put("/groups/:id", updateGroup);
+router.put("/groups/:id", verifyToken, updateGroup);
 
-router.delete("/groups/:id", deleteGroup);
+router.delete("/groups/:id", verifyToken, deleteGroup);
 
 export default router;
