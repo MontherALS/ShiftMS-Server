@@ -15,7 +15,7 @@ export const getGroups = async (req: Request, res: Response) => {
   try {
     const groups = await Group.find().populate("supervisor");
 
-    if (!groups) return res.status(404).json({ message: "cannot find Groups in db" });
+    if (groups.length === 0) return res.status(404).json({ message: "cannot find Groups" });
 
     res.status(200).json(groups);
   } catch (err: any) {

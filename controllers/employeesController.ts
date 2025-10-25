@@ -13,7 +13,7 @@ export const getEmployees = async (req: Request, res: Response) => {
   try {
     const employees = await Employee.find().populate("group");
 
-    if (!employees) return res.status(404).json({ message: "No employees found" });
+    if (employees.length === 0) return res.status(404).json({ message: "No employees found" });
 
     res.status(200).json(employees);
   } catch (err: any) {
