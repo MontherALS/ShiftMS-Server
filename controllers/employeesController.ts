@@ -1,67 +1,65 @@
+import { Request, Response } from "express";
 import Employee from "../models/Employee.js";
 import Group from "../models/Group.js";
 
-export const getEmployees = async (req, res) => {
+interface EmployeesType {
+  name: string;
+  phone: string;
+  email: string;
+  group?: string;
+}
+
+export const getEmployees = async (req: Request, res: Response) => {
   try {
     const employees = await Employee.find().populate("group");
+
     if (!employees) return res.status(404).json({ message: "No employees found" });
+
     res.status(200).json(employees);
-  } catch (err) {
+  } catch (err: any) {
     console.error("Error fetching employees:", err);
+
     return res.status(500).json({ message: "Internal server error" });
   }
 };
 
-export const addEmployee = async (req, res) => {
+export const addEmployee = async (req: Request<{}, {}, EmployeesType>, res: Response) => {
   try {
-    const { name, phone, email } = req.body;
-    const group = req?.body?.group || null;
     const newEmployee = {
-      name,
-      phone,
-      email,
-      group,
+      name: req.body.name,
+      phone: req.body.phone,
+      email: req.body.email,
+      group: req.body.group,
     };
 
     if (!newEmployee.name || !newEmployee.phone || !newEmployee.email) {
       return res.status(400).json({ message: "All fields are required" });
     }
-    if (newEmployee.name.length < 3) {
-      return res.status(400).json({ message: "Name must be at least 3 characters long" });
-    }
-    if (newEmployee.phone.length < 13) {
-      return res.status(400).json({
-        message: "Phone number must be at least 13 digits starterd with (+966)",
-      });
-    }
-    if (newEmployee.email.length < 8 || !newEmployee.email.includes("@") || !newEmployee.email.includes(".")) {
-      return res.status(400).json({
-        message: "Email must be at least 8 characters long and includes @ / .",
-      });
-    }
 
     const employee = new Employee(newEmployee);
+
     await employee.save();
 
-    // Update group IF exists
     if (newEmployee.group) {
-      const foundGroup = await Group.findById(group);
+      const foundGroup = await Group.findById(newEmployee.group);
 
       if (!foundGroup) {
         return res.status(404).json({ message: "Group not found" });
       }
 
       foundGroup.employees.push(employee._id);
+
       await foundGroup.save();
     }
 
     res.status(201).json(employee);
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({ message: "Server error: Failed to add employee" });
     console.log(err.message);
   }
 };
-export const deleteEmployee = async (req, res) => {
+
+export const deleteEmployee = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
 
@@ -70,7 +68,7 @@ export const deleteEmployee = async (req, res) => {
     if (!employee) return res.status(404).json({ message: "No employees found" });
 
     res.status(200).json({ message: "Employee deleted" });
-  } catch (err) {
+  } catch (err: any) {
     res.status(500).json({ message: "Server error: Failed to delete employee" });
     console.log("error happend ", err.message);
   }

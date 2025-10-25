@@ -1,7 +1,15 @@
 import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
-const groupSchema = new Schema({
+type Group = {
+  name: string;
+  workingDays: string[];
+  shiftStart: string;
+  shiftEnd: string;
+  supervisor: mongoose.Types.ObjectId;
+  employees: mongoose.Types.ObjectId[];
+};
+const groupSchema = new Schema<Group>({
   name: { type: String, required: true },
   workingDays: { type: [String], required: true },
   shiftStart: { type: String, required: true },
@@ -10,4 +18,4 @@ const groupSchema = new Schema({
   employees: [{ type: Schema.Types.ObjectId, ref: "Employee" }],
 });
 
-export default mongoose.model("Group", groupSchema);
+export default mongoose.model<Group>("Group", groupSchema);
