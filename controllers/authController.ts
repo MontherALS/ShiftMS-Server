@@ -36,15 +36,25 @@ export const login = async (req: Request<{}, {}, AdminType>, res: Response) => {
     if (!admin) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
+
     const isMatch = await bycript.compare(password, admin.password);
 
     if (!isMatch) {
       return res.status(401).json({ message: "Invalid credentials" });
     }
 
+    const refreshToken = jwt.sign({ id: admin._id }, process.env.REFRESH_TOKEN_SECRET as string);
+
     const token = jwt.sign({ id: admin._id, email: admin.email }, process.env.ACCESS_TOKEN_SECRET as string, {
       expiresIn: "1h",
     });
+
+    res.cookie("refreshToken", refreshToken, {
+      httpOnly: true,
+      secure: false,
+      maxAge: 14 * 24 * 60 * 60 * 1000,
+    });
+
     return res.status(200).json({ token });
   } catch (error) {
     console.error("Error during login:", error);

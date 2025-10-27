@@ -24,6 +24,7 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 
 export const refreshToken = (req: Request, res: Response) => {
   const token = req.cookies.refreshToken;
+
   if (!token) return res.status(401).json({ message: "Refresh token missing" });
 
   try {
@@ -34,6 +35,7 @@ export const refreshToken = (req: Request, res: Response) => {
     return res.json({ accessToken: newAccessToken });
   } catch (error) {
     if (error instanceof TokenExpiredError) return res.status(401).json({ message: "Refresh token expired" });
+
     if (error instanceof JsonWebTokenError) return res.status(403).json({ message: "Invalid refresh token" });
 
     return res.status(500).json({ message: "Token verification failed" });
