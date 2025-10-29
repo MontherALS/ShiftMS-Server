@@ -15,9 +15,6 @@ export const getGroups = async (req: Request, res: Response) => {
   try {
     const adminId = (req as any).user.id;
 
-    if (!adminId) {
-      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
-    }
     const groups = await Group.find({ admin: adminId }).populate("supervisor");
 
     res.status(200).json(groups);
@@ -32,9 +29,6 @@ export const getGroupById = async (req: Request, res: Response) => {
   try {
     const adminId = (req as any).user.id;
 
-    if (!adminId) {
-      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
-    }
     const { id } = req.params;
 
     const group = await Group.findOne({ _id: id, admin: adminId }).populate("employees").populate("supervisor");
@@ -53,9 +47,6 @@ export const createGroup = async (req: Request<{}, {}, GroupType>, res: Response
   try {
     const adminId = (req as any).user.id;
 
-    if (!adminId) {
-      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
-    }
     const { name, workingDays, shiftStart, shiftEnd, supervisor } = req.body;
 
     const newGroup = {
@@ -81,12 +72,10 @@ export const createGroup = async (req: Request<{}, {}, GroupType>, res: Response
 export const updateGroup = async (req: Request<{ id: string }, {}, GroupType>, res: Response) => {
   try {
     const adminId = (req as any).user.id;
-    const { id } = req.params;
-    const { name, workingDays, shiftStart, shiftEnd, supervisor, employees } = req.body;
 
-    if (!adminId) {
-      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
-    }
+    const { id } = req.params;
+
+    const { name, workingDays, shiftStart, shiftEnd, supervisor, employees } = req.body;
 
     const updatedData = {
       name,

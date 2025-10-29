@@ -21,15 +21,16 @@ export const signup = async (req: Request<{}, {}, AdminType>, res: Response) => 
   } catch (error) {
     console.error("Error during signup:", error);
 
-    return res.status(500).json({ message: "Internal server POTATO", error });
+    return res.status(500).json({ message: "Internal server error ", error });
   }
 };
 
 export const login = async (req: Request<{}, {}, AdminType>, res: Response) => {
-  const { email, password } = req.body;
   try {
-    console.log("Login attempt for email:", email);
+    const { email, password } = req.body;
+
     const admin = await Admin.findOne({ email });
+
     if (!admin) {
       return res.status(401).json({ message: "Invalid credentials" });
     }

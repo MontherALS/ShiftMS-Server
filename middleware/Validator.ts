@@ -56,20 +56,25 @@ export const groupValidationRules = [
   body("name")
     .notEmpty()
     .withMessage("Group name is required")
+    .bail()
     .custom(async (value: string) => {
       const existingGroup = await Group.findOne({ name: value });
-      console.log(existingGroup, "from validator");
+
       if (existingGroup) {
         throw new Error("Group name already in use");
       }
+
       return true;
     }),
+
   body("workingDays").isArray({ min: 1 }).withMessage("At least one working day must be selected"),
   body("shiftStart").notEmpty().withMessage("Shift start time is required"),
   body("shiftEnd").notEmpty().withMessage("Shift end time is required"),
 ];
+
 export const groupValidator = (req: Request, res: Response, next: Function) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
@@ -95,8 +100,10 @@ export const employeeValidationRules = [
 
 export const employeeValidator = (req: Request, res: Response, next: Function) => {
   const errors = validationResult(req);
+
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
+
   next();
 };

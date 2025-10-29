@@ -1,4 +1,5 @@
 import jwt, { TokenExpiredError, JsonWebTokenError } from "jsonwebtoken";
+
 import { Request, Response, NextFunction } from "express";
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
@@ -12,7 +13,9 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 
   try {
     const decoded = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET as string);
+
     (req as any).user = decoded;
+
     next();
   } catch (error) {
     if (error instanceof TokenExpiredError) return res.status(401).json({ message: "Token expired" });
@@ -25,10 +28,9 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 
 export const refreshToken = (req: Request, res: Response) => {
   const token = req.cookies.refreshToken;
-  console.log("Refresh token received:", token);
 
   if (!token) return res.status(401).json({ message: "Refresh token missing" });
-  console.log("Refresh token received:", token);
+
   try {
     const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET as string) as any;
 

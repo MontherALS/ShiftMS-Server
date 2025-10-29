@@ -2,15 +2,16 @@ import { Request, Response } from "express";
 import Employee from "../models/Employee";
 import Group from "../models/Group";
 
-interface EmployeesType {
+type EmployeesType = {
   name: string;
   phone: string;
   group?: string;
-}
+};
 
 export const getEmployees = async (req: Request, res: Response) => {
-  const adminId = (req as any).user.id;
   try {
+    const adminId = (req as any).user.id;
+
     const employees = await Employee.find({ admin: adminId }).populate("group");
 
     res.status(200).json(employees);
@@ -25,9 +26,6 @@ export const addEmployee = async (req: Request<{}, {}, EmployeesType>, res: Resp
   try {
     const adminId = (req as any).user.id;
 
-    if (!adminId) {
-      return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
-    }
     const newEmployee = {
       name: req.body.name,
       phone: req.body.phone,
@@ -64,6 +62,8 @@ export const addEmployee = async (req: Request<{}, {}, EmployeesType>, res: Resp
     console.log(err.message);
   }
 };
+
+// ! implement update employee later
 
 export const deleteEmployee = async (req: Request, res: Response) => {
   try {
