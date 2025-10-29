@@ -66,9 +66,6 @@ export const createGroup = async (req: Request<{}, {}, GroupType>, res: Response
       supervisor: supervisor || null,
       admin: adminId,
     };
-    if (!newGroup.name || !newGroup.workingDays || !newGroup.shiftStart || !newGroup.shiftEnd) {
-      return res.status(400).json({ message: "All fields are required" });
-    }
 
     const group = new Group(newGroup);
 
@@ -89,11 +86,6 @@ export const updateGroup = async (req: Request<{ id: string }, {}, GroupType>, r
 
     if (!adminId) {
       return res.status(401).json({ message: "Unauthorized: Admin ID missing" });
-    }
-
-    const existingGroup = await Group.findOne({ _id: id, admin: adminId });
-    if (!existingGroup) {
-      return res.status(403).json({ message: "Forbidden: You don't own this group" });
     }
 
     const updatedData = {

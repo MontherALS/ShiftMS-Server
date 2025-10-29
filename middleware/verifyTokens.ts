@@ -16,6 +16,7 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
     next();
   } catch (error) {
     if (error instanceof TokenExpiredError) return res.status(401).json({ message: "Token expired" });
+
     if (error instanceof JsonWebTokenError) return res.status(403).json({ message: "Invalid token" });
 
     return res.status(500).json({ message: "Token verification failed" });
@@ -24,9 +25,10 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
 
 export const refreshToken = (req: Request, res: Response) => {
   const token = req.cookies.refreshToken;
+  console.log("Refresh token received:", token);
 
   if (!token) return res.status(401).json({ message: "Refresh token missing" });
-
+  console.log("Refresh token received:", token);
   try {
     const decoded = jwt.verify(token, process.env.REFRESH_TOKEN_SECRET as string) as any;
 

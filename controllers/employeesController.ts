@@ -43,6 +43,8 @@ export const addEmployee = async (req: Request<{}, {}, EmployeesType>, res: Resp
 
     await employee.save();
 
+    console.log("New Employee Data:", newEmployee, "Admin ID:", adminId);
+
     if (newEmployee.group) {
       const foundGroup = await Group.findById(newEmployee.group);
 

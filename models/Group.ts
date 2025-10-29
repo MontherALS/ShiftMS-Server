@@ -6,7 +6,7 @@ type Group = {
   workingDays: string[];
   shiftStart: string;
   shiftEnd: string;
-  supervisor: mongoose.Types.ObjectId;
+  supervisor?: mongoose.Types.ObjectId;
   employees: mongoose.Types.ObjectId[];
   admin: mongoose.Types.ObjectId;
 };
