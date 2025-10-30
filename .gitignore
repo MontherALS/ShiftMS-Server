@@ -2,8 +2,8 @@
 node_modules/
 
 # === Env Files ===
-# .env
-# .env.local
+.env
+.env.local
 
 # === Logs ===
 logs/
