@@ -42,19 +42,18 @@ I’d really appreciate your insights 🙏
 
 ## ⚙️ Project Structure
 
+```
 ShiftMS/
-├── client/
-│   ├── app/
-│   ├── components/
-│   ├── Types/
-│   └── utils/
-├── server/
-│   ├── controllers/
-│   ├── middleware/
-│   ├── models/
-│   ├── routes/
-│   └── index.ts
+├── server/                     # Backend (Express.js)
+│   ├── controllers/            # Business logic (auth, group, employee)
+│   ├── middleware/             # Token verification, validation handlers
+│   ├── models/                 # Mongoose schemas (Admin, Group, Employee)
+│   ├── routes/                 # API endpoints
+│   └── app.ts                # App entry point
+│
 └── README.md
+```
+
 
 
 
