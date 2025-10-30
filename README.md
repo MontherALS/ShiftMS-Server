@@ -48,7 +48,7 @@ ShiftMS/
 │ ├── middleware/ # Token verification, validation handlers
 │ ├── models/ # Mongoose schemas (Admin, Group, Employee)
 │ ├── routes/ # API endpoints
-│ └── index.ts # App entry point
+│ └── app.ts # App entry point
 │
 └── README.md
 
