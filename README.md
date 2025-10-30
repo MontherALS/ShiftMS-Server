@@ -64,11 +64,12 @@ ShiftMS/
 You need to configure environment variables for both **client** and **server**:
 
 **Backend (.env):**
+```
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
 ACCESS_TOKEN_SECRET=your_access_token_secret
 REFRESH_TOKEN_SECRET=your_refresh_token_secret
-
+```
 ## 🧠 API Endpoints Overview
 
 ### **Auth**
