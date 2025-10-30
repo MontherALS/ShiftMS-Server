@@ -1,9 +1,12 @@
 # 🕒 ShiftMS – Smart Shift Management System
 
 **ShiftMS** is a modern web application designed to simplify employee shift scheduling and management.  
-It enables (admins/users) to create groups, assign employees, and monitor current and upcoming shifts in real-time.  
+It enables admin to create groups, assign employees, and monitor current and upcoming shifts in real-time.  
 Built with a **Next.js** frontend and an **Express.js + TypeScript** backend, ShiftMS is fast, secure, and scalable.
 
+## 🧑‍💻 About This Project
+This project was built as part of my full-stack learning journey.  
+It focuses on **backend logic, authentication, and real-time shift tracking** using modern web technologies.
 
 ## 📝 Note
 This project is part of my ongoing learning journey in full-stack development.  
@@ -31,6 +34,10 @@ I’d really appreciate your insights 🙏
 - TypeScript
 - TailwindCSS
 
+### 🖥️ FrontEnd Repository
+You can check the frontend code here:  
+👉 [ShiftMS Server Repository](https://github.com/MontherALS/ShiftMS-Client)
+
 **Backend**
 - Node.js + Express.js
 - TypeScript
@@ -53,9 +60,6 @@ ShiftMS/
 │
 └── README.md
 ```
-
-
-
 
 ---
 
@@ -108,3 +112,8 @@ npm run dev
 
  The app will be available at:
  http://localhost:5000
+```
+---
+## 🧑‍💻 Author
+**MontherALS**  
+GitHub: [@MontherALS](https://github.com/MontherALS)
