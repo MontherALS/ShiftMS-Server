@@ -6,8 +6,10 @@ Built with a **Next.js** frontend and an **Express.js + TypeScript** backend, Sh
 
 
 ## 📝 Note
-If you have any suggestions for improving the app, feel free to reach out or open an issue!  
-I’d really appreciate your feedback 🙏
+This project is part of my ongoing learning journey in full-stack development.  
+If you have any suggestions or feedback to help me improve, please feel free to reach out or open an issue —  
+I’d really appreciate your insights 🙏
+
 
 ---
 
@@ -50,6 +52,9 @@ ShiftMS/
 │
 └── README.md
 
+
+---
+
 ## 🔑 Environment Variables
 
 You need to configure environment variables for both **client** and **server**:
@@ -89,12 +94,14 @@ REFRESH_TOKEN_SECRET=your_refresh_token_secret
 
 ## 🧰 Installation & Setup
 
-bash
+```bash
 
 git clone https://github.com/yourusername/shiftms.git
 cd server
 npm install
 npm run dev
 
-The app will be available at:
-👉 http://localhost:3000
+ The app will be available at:
+ http://localhost:3000
+
+ 
