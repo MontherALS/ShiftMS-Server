@@ -36,7 +36,7 @@ I’d really appreciate your insights 🙏
 
 ### 🖥️ FrontEnd Repository
 You can check the frontend code here:  
-👉 [ShiftMS Server Repository](https://github.com/MontherALS/ShiftMS-Client)
+👉 [ShiftMS Client Repository](https://github.com/MontherALS/ShiftMS-Client)
 
 **Backend**
 - Node.js + Express.js
