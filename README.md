@@ -85,7 +85,7 @@ REFRESH_TOKEN_SECRET=your_refresh_token_secret
 | GET | /groups | Get all groups for the current admin |
 | GET | /groups/:id | Get a specific group by ID |
 | POST | /groups | Create a new group |
-| PATCH | /groups/:id | Update group details |
+| PUT | /groups/:id | Update group details |
 | DELETE | /groups/:id | Delete a group |
 
 ### **Employees**
