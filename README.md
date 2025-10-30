@@ -55,7 +55,7 @@ ShiftMS/
 │   ├── controllers/            # Business logic (auth, group, employee)
 │   ├── middleware/             # Token verification, validation handlers
 │   ├── models/                 # Mongoose schemas (Admin, Group, Employee)
-│   ├── routes/                 # API endpoints
+│   ├── routers/                 # API endpoints
 │   └── app.ts                # App entry point
 │
 └── README.md
