@@ -108,7 +108,7 @@ REFRESH_TOKEN_SECRET=your_refresh_token_secret
 git clone https://github.com/yourusername/shiftms.git
 cd server
 npm install
-npm run dev
+npm start
 
  The app will be available at:
  http://localhost:5000
