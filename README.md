@@ -1,4 +1,4 @@
-# 🕒 ShiftMS – Smart Shift Management System
+# ShiftMS – Smart Shift Management System
 
 **ShiftMS** is a modern web application designed to simplify employee shift scheduling and management.  
 It enables admin to create groups, assign employees, and monitor current and upcoming shifts in real-time.  
@@ -16,18 +16,18 @@ I’d really appreciate your insights 🙏
 
 ---
 
-## 🚀 Features
+##  Features
 
-- 🔐 **Authentication System** – Secure admin signup/login with JWT + Refresh Tokens  
-- 👥 **Employee & Group Management** – Create, update, and manage employees and work groups  
-- ⏰ **Shift Tracking** – Display current and next shifts dynamically based on working days  
-- 🧾 **Validation** – All input fields are validated using express-validator  
-- 🧠 **Smart Filtering** – Filter shifts based on day and time  
-- 🪶 **Modern UI** – Built with TailwindCSS for a clean, responsive design  
+-  **Authentication System** – Secure admin signup/login with JWT + Refresh Tokens  
+- **Employee & Group Management** – Create, update, and manage employees and work groups  
+- **Shift Tracking** – Display current and next shifts dynamically based on working days  
+- **Validation** – All input fields are validated using express-validator  
+- **Smart Filtering** – Filter shifts based on day and time  
+- **Modern UI** – Built with TailwindCSS for a clean, responsive design  
 
 ---
 
-## 🧩 Tech Stack
+##  Tech Stack
 
 **Frontend**
 - Next.js 15 (App Router)
@@ -47,7 +47,7 @@ You can check the frontend code here:
 
 ---
 
-## ⚙️ Project Structure
+##  Project Structure
 
 ```
 ShiftMS/
@@ -74,7 +74,7 @@ MONGO_URI=your_mongodb_connection_string
 ACCESS_TOKEN_SECRET=your_access_token_secret
 REFRESH_TOKEN_SECRET=your_refresh_token_secret
 ```
-## 🧠 API Endpoints Overview
+##  API Endpoints Overview
 
 ### **Auth**
 | Method | Endpoint | Description |
@@ -101,7 +101,7 @@ REFRESH_TOKEN_SECRET=your_refresh_token_secret
 
 ---
 
-## 🧰 Installation & Setup
+##  Installation & Setup
 
 ```bash
 
