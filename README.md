@@ -4,11 +4,11 @@
 It enables admin to create groups, assign employees, and monitor current and upcoming shifts in real-time.  
 Built with a **Next.js** frontend and an **Express.js + TypeScript** backend, ShiftMS is fast, secure, and scalable.
 
-## 🧑‍💻 About This Project
+##  About This Project
 This project was built as part of my full-stack learning journey.  
 It focuses on **backend logic, authentication, and real-time shift tracking** using modern web technologies.
 
-## 📝 Note
+##  Note
 This project is part of my ongoing learning journey in full-stack development.  
 If you have any suggestions or feedback to help me improve, please feel free to reach out or open an issue —  
 I’d really appreciate your insights 🙏
