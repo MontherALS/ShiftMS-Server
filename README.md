@@ -34,9 +34,9 @@ I’d really appreciate your insights 🙏
 - TypeScript
 - TailwindCSS
 
-### 🖥️ FrontEnd Repository
+###  FrontEnd Repository
 You can check the frontend code here:  
-👉 [ShiftMS Client Repository](https://github.com/MontherALS/ShiftMS-Client)
+ [ShiftMS Client Repository](https://github.com/MontherALS/ShiftMS-Client)
 
 **Backend**
 - Node.js + Express.js
@@ -63,7 +63,7 @@ ShiftMS/
 
 ---
 
-## 🔑 Environment Variables
+## Environment Variables
 
 You need to configure environment variables for both **client** and **server**:
 
